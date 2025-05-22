@@ -42,8 +42,28 @@ Follow these steps to get the application running locally:
     *   **macOS:** Typically `/Applications/XAMPP/htdocs/`
     *   **Linux:** Typically `/opt/lampp/htdocs/`
     *   So, you should have a path like `C:\xampp\htdocs\drought-prediction-system\`.
+    *   The project includes an `uploads/` directory at its root (e.g., `drought-prediction-system/uploads/`). This directory is used to store images uploaded by users through the admin panel, specifically in `uploads/images/news/` and `uploads/images/researchers/`. While the application will attempt to create these directories if they don't exist, it's good to be aware of them.
 
-### 3.4. Database Setup
+### 3.4. Set Directory Permissions (for Image Uploads)
+
+*   The web server needs write permissions for the `uploads/`, `uploads/images/`, `uploads/images/news/`, and `uploads/images/researchers/` directories to allow image uploads.
+*   The PHP scripts in the `admin` panel will attempt to create these directories if they don't exist during the first image upload for the respective sections.
+*   If you encounter issues with image uploads (e.g., "Failed to move uploaded file" or "Failed to create directory" errors), please ensure these directories exist (or can be created by the web server) and that your web server process (e.g., the user Apache runs as) has the necessary write permissions for the `uploads/` directory and its subdirectories.
+*   **For local development with XAMPP on Windows:** This is usually not an issue as file permissions are more relaxed.
+*   **For XAMPP on Linux or macOS:** You might need to manually create the `uploads` directory within your project root (e.g., `htdocs/drought-prediction-system/uploads`) and then set appropriate permissions. For example:
+    ```bash
+    cd /path/to/your/project/htdocs/drought-prediction-system/
+    mkdir -p uploads/images/news
+    mkdir -p uploads/images/researchers
+    sudo chmod -R 775 uploads 
+    # You may also need to change the ownership to the Apache user/group
+    # (e.g., sudo chown -R www-data:www-data uploads)
+    # Or, for a less secure but often functional local setup:
+    # sudo chmod -R 777 uploads
+    ```
+*   For production environments, consult your hosting provider's documentation for secure permission settings. Typically, directories should be `755` or `775` and files `644`. The web server user must be the owner or part of the group that owns the directories it needs to write to.
+
+### 3.5. Database Setup
 
 1.  **Access phpMyAdmin:** Open your web browser and navigate to `http://localhost/phpmyadmin`.
 2.  **Create the Database:**
@@ -94,7 +114,7 @@ An admin user is required to access the backend content management system.
         define('DB_USERNAME', 'root');
         define('DB_PASSWORD', ''); 
         ```
-    *   It is highly recommended to create a dedicated MySQL user (e.g., `drought_user`) with a strong password and grant it privileges only on `drought_prediction_db` for better security, even for local development. You can do this via phpMyAdmin's "User accounts" tab.
+    *   It is highly recommended to create a dedicated MySQL user (e.g., `drought_user`) with a strong password and grant it privileges only on `drought_prediction_db` for better security, even for local development. You can do this via phpMyAdmin's "User accounts" tab. (Ensure this user also has `CREATE TABLE` rights if `database.sql` is to be run by this user, though typically import is done as root/admin).
 
 ## 4. Running the Application
 
@@ -123,6 +143,10 @@ An admin user is required to access the backend content management system.
     *   Ensure file/folder names are correct (case sensitivity can be an issue, especially if moving from Windows to Linux).
 *   **Incorrect Paths for Includes/Requires:**
     *   If you see errors like `Warning: require_once(../config/db.php): failed to open stream...`, it indicates a path issue. The project uses relative paths like `../config/db.php` from within the `admin` directory, which should be correct given the described structure.
+*   **Image Upload Failures:**
+    *   Ensure the `uploads/`, `uploads/images/`, `uploads/images/news/`, and `uploads/images/researchers/` directories exist within your project root and are writable by the web server (see Section 3.4 on Directory Permissions).
+    *   Check PHP error logs for more specific messages (e.g., "permission denied," "failed to write file").
+    *   Verify that the `upload_max_filesize` and `post_max_size` directives in your `php.ini` file are large enough for the images you are trying to upload (though the application limits uploads to 5MB, PHP's own limits must also be sufficient).
 
 ---
 This completes the local deployment guide.

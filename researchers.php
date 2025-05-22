@@ -47,11 +47,20 @@
             ?>
                     <div class="col-md-6 col-lg-4 mb-4" id="researcher-<?php echo $row['id']; ?>">
                         <div class="card h-100">
-                            <?php if (!empty($row['photo_url'])): ?>
-                                <img src="<?php echo htmlspecialchars($row['photo_url']); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($row['name']); ?>" style="height: 250px; object-fit: cover;">
-                            <?php else: ?>
-                                <img src="https://via.placeholder.com/300x250.png?text=No+Image" class="card-img-top" alt="Placeholder image for <?php echo htmlspecialchars($row['name']); ?>" style="height: 250px; object-fit: cover;">
-                            <?php endif; ?>
+                            <div class="image-loader-wrapper" style="height: 250px; background-color: #e9ecef;">
+                                <?php if (!empty($row['photo_url'])): ?>
+                                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" 
+                                         data-src="<?php echo htmlspecialchars($row['photo_url']); ?>" 
+                                         class="card-img-top lazy-load-image" 
+                                         alt="<?php echo htmlspecialchars($row['name']); ?>" 
+                                         style="height: 250px; object-fit: cover;">
+                                <?php else: ?>
+                                    <img src="https://via.placeholder.com/300x250.png?text=No+Photo" 
+                                         class="card-img-top" 
+                                         alt="Placeholder image for <?php echo htmlspecialchars($row['name']); ?>" 
+                                         style="height: 250px; object-fit: cover;">
+                                <?php endif; ?>
+                            </div>
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title"><?php echo htmlspecialchars($row['name']); ?></h5>
                                 <p class="card-text"><strong>Focus:</strong> <?php echo htmlspecialchars($row['research_focus']); ?></p>
@@ -81,5 +90,6 @@
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <script src="js/image-loader.js"></script>
 </body>
 </html>

@@ -11,9 +11,22 @@ $error_message = '';
 $success_message = '';
 
 // Define variables
-$name = $bio = $photo_url = $research_focus = "";
+$name = $bio = $photo_url = $research_focus = ""; // $photo_url will hold existing
 $name_err = $bio_err = $research_focus_err = "";
+$photo_upload_err = ""; // For new photo upload errors
 $researcher_id = null;
+
+// Constants for upload, ensure they are available or redefine
+if (!defined('UPLOAD_DIR_RESEARCHERS')) {
+    define('UPLOAD_DIR_RESEARCHERS', '../uploads/images/researchers/');
+}
+if (!defined('ALLOWED_TYPES')) {
+    define('ALLOWED_TYPES', ['image/jpeg', 'image/png', 'image/gif']);
+}
+if (!defined('MAX_FILE_SIZE')) {
+    define('MAX_FILE_SIZE', 5 * 1024 * 1024); // 5MB
+}
+
 
 // Check if ID is provided for editing
 if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
@@ -25,7 +38,7 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
         if ($stmt_fetch->execute()) {
             $stmt_fetch->store_result();
             if ($stmt_fetch->num_rows == 1) {
-                $stmt_fetch->bind_result($name, $bio, $photo_url, $research_focus);
+                $stmt_fetch->bind_result($name, $bio, $photo_url, $research_focus); // $photo_url gets current db value
                 $stmt_fetch->fetch();
             } else {
                 $_SESSION['error_message'] = "Researcher not found.";
@@ -56,6 +69,70 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $researcher_id = $_POST["id"];
     }
 
+    $current_photo_db_path = $photo_url; // Preserve existing photo path from DB
+    $final_photo_path = $current_photo_db_path; // Initialize
+
+    // Handle new file upload for photo
+    if (isset($_FILES['photo_upload']) && $_FILES['photo_upload']['error'] == UPLOAD_ERR_OK) {
+        $file_tmp_path = $_FILES['photo_upload']['tmp_name'];
+        $file_name = basename($_FILES['photo_upload']['name']);
+        $file_size = $_FILES['photo_upload']['size'];
+        $file_type = $_FILES['photo_upload']['type'];
+        $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+
+        if ($file_size > MAX_FILE_SIZE) {
+            $photo_upload_err = "Error: Photo file size exceeds 5MB.";
+        } elseif (!in_array($file_type, ALLOWED_TYPES)) {
+            $photo_upload_err = "Error: Only JPG, PNG, GIF allowed for photos.";
+        } else {
+            $unique_file_name = uniqid('researcher_', true) . '.' . $file_ext;
+            $destination_path = UPLOAD_DIR_RESEARCHERS . $unique_file_name;
+            if (!is_dir(UPLOAD_DIR_RESEARCHERS)) {
+                if (!mkdir(UPLOAD_DIR_RESEARCHERS, 0775, true)) {
+                    $photo_upload_err = "Error: Failed to create photo upload directory.";
+                }
+            }
+            if (empty($photo_upload_err) && move_uploaded_file($file_tmp_path, $destination_path)) {
+                $final_photo_path = 'uploads/images/researchers/' . $unique_file_name;
+                // Delete old local photo if it existed and wasn't a URL
+                if (!empty($current_photo_db_path) && !preg_match('/^http(s)?:\/\//', $current_photo_db_path)) {
+                    if (file_exists('../' . $current_photo_db_path)) {
+                        unlink('../' . $current_photo_db_path);
+                    }
+                }
+            } else {
+                if(empty($photo_upload_err)) $photo_upload_err = "Error: Failed to move uploaded photo.";
+            }
+        }
+    } elseif (isset($_FILES['photo_upload']) && $_FILES['photo_upload']['error'] != UPLOAD_ERR_NO_FILE) {
+        $photo_upload_err = "Error uploading photo. Code: " . $_FILES['photo_upload']['error'];
+    }
+
+    // If no new file was successfully uploaded, consider the photo_url from the form
+    if (!(isset($_FILES['photo_upload']) && $_FILES['photo_upload']['error'] == UPLOAD_ERR_OK && empty($photo_upload_err))) {
+        $photo_url_from_form = trim($_POST["photo_url"]);
+        if ($photo_url_from_form !== $current_photo_db_path) { // URL field changed
+            if (empty($photo_url_from_form)) { // URL field cleared
+                $final_photo_path = null;
+                if (!empty($current_photo_db_path) && !preg_match('/^http(s)?:\/\//', $current_photo_db_path)) {
+                    if (file_exists('../' . $current_photo_db_path)) {
+                        unlink('../' . $current_photo_db_path);
+                    }
+                }
+            } elseif (filter_var($photo_url_from_form, FILTER_VALIDATE_URL)) {
+                $final_photo_path = $photo_url_from_form; // Use new URL
+                if (!empty($current_photo_db_path) && !preg_match('/^http(s)?:\/\//', $current_photo_db_path)) {
+                     if (file_exists('../' . $current_photo_db_path)) {
+                        unlink('../' . $current_photo_db_path);
+                    }
+                }
+            } else {
+                // Invalid URL, do nothing to $final_photo_path or set specific error
+            }
+        }
+    }
+    $photo_url = trim($_POST["photo_url"]); // For form repopulation
+
     // Validate name
     if (empty(trim($_POST["name"]))) {
         $name_err = "Please enter the researcher's name.";
@@ -77,18 +154,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $research_focus = trim($_POST["research_focus"]);
     }
 
-    // Photo URL is optional
-    $photo_url = trim($_POST["photo_url"]);
-
-    if (empty($name_err) && empty($bio_err) && empty($research_focus_err) && !empty($researcher_id)) {
+    // $final_photo_path is for DB
+    if (empty($name_err) && empty($bio_err) && empty($research_focus_err) && empty($photo_upload_err) && !empty($researcher_id)) {
         $sql_update = "UPDATE researchers SET name = ?, bio = ?, photo_url = ?, research_focus = ? WHERE id = ?";
 
         if ($stmt_update = $mysqli->prepare($sql_update)) {
-            $stmt_update->bind_param("ssssi", $param_name, $param_bio, $param_photo_url, $param_research_focus, $param_id);
+            $stmt_update->bind_param("ssssi", $param_name, $param_bio, $param_final_photo_path, $param_research_focus, $param_id);
 
             $param_name = $name;
             $param_bio = $bio;
-            $param_photo_url = $photo_url;
+            $param_final_photo_path = $final_photo_path; // Use determined path
             $param_research_focus = $research_focus;
             $param_id = $researcher_id;
 
@@ -125,9 +200,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if(!empty($error_message)){
             echo '<div class="alert alert-danger">' . $error_message . '</div>';
         }
+        if(!empty($photo_upload_err)){ // Display photo upload specific errors
+            echo '<div class="alert alert-danger">' . $photo_upload_err . '</div>';
+        }
         ?>
 
-        <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
+        <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?php echo $researcher_id; ?>"/>
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
@@ -144,11 +222,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="text" name="research_focus" class="form-control <?php echo (!empty($research_focus_err)) ? 'is-invalid' : ''; ?>" id="research_focus" value="<?php echo htmlspecialchars($research_focus); ?>">
                 <span class="invalid-feedback"><?php echo $research_focus_err; ?></span>
             </div>
+
+            <hr>
+            <p class="text-muted"><small>Upload a new photo or provide/update the photo URL. If a new photo is uploaded, it will replace any existing photo or URL.</small></p>
+
+            <?php if (!empty($photo_url)): ?>
             <div class="mb-3">
-                <label for="photo_url" class="form-label">Photo URL (Optional)</label>
-                <input type="text" name="photo_url" class="form-control" id="photo_url" value="<?php echo htmlspecialchars($photo_url); ?>">
-                <small class="form-text text-muted">Enter a URL for the researcher's photo.</small>
+                <label class="form-label">Current Photo:</label><br>
+                <img src="<?php echo (preg_match('/^http(s)?:\/\//', $photo_url) ? htmlspecialchars($photo_url) : '../' . htmlspecialchars($photo_url)); ?>" alt="Current Researcher Photo" style="max-width: 200px; height: auto; margin-bottom: 10px;">
             </div>
+            <?php endif; ?>
+
+            <div class="mb-3">
+                <label for="photo_upload" class="form-label">Upload New Photo to Replace (Optional)</label>
+                <input type="file" class="form-control" id="photo_upload" name="photo_upload">
+            </div>
+
+            <div class="mb-3">
+                <label for="photo_url" class="form-label">Or Update Photo URL (Optional)</label>
+                <input type="text" name="photo_url" class="form-control" id="photo_url" value="<?php echo htmlspecialchars($photo_url); ?>">
+                 <small class="form-text text-muted">If providing a URL, ensure it's a direct link to an image. If uploading, this URL will be ignored or replaced.</small>
+            </div>
+            <hr>
+
             <button type="submit" class="btn btn-primary">Update Researcher</button>
             <a href="manage_researchers.php" class="btn btn-secondary">Cancel</a>
         </form>

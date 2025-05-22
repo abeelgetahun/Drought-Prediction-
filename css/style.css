@@ -106,6 +106,40 @@ a:hover {
 }
 
 
+/* Lazy Load Image Styling */
+.lazy-load-image {
+    /* Optional: transition for smoother appearance */
+    transition: opacity 0.3s ease-in-out;
+    opacity: 1; /* Start with full opacity for the placeholder/spinner */
+}
+
+.lazy-load-image.loading {
+    /* If using a very small src like a transparent pixel, the background will show */
+    background: #f0f0f0 url('../images/spinner.gif') no-repeat center center;
+    /* Ensure the image itself doesn't look broken if src is tiny and background is main cue */
+    /* min-height and min-width might be needed if the wrapper isn't sized */
+}
+
+.lazy-load-image.loaded {
+    /* Once loaded, the actual image src takes over, background is irrelevant */
+    background-image: none;
+    opacity: 1;
+}
+
+.lazy-load-image.error {
+    /* Style for images that failed to load, e.g., show a fallback icon or border */
+    background-image: none; /* Remove spinner */
+    /* You could add a background image pointing to a 'broken-image.svg' or similar */
+}
+
+.image-loader-wrapper {
+    position: relative; /* Useful if you want to position a spinner element absolutely inside */
+    /* background-color: #e9ecef; */ /* Already on elements */
+    /* min-height: 200px; */ /* Example, adjust based on expected image aspect ratio or specific element styling */
+    display: block; /* or flex if needed for alignment of an internal spinner */
+}
+
+
 /* Footer Styling */
 .footer { /* Renamed to avoid conflict if Bootstrap has a 'footer' class with higher specificity */
     padding: 20px 0;

@@ -80,8 +80,12 @@
                 if ($result_banner_news && $result_banner_news->num_rows > 0) {
                     while ($news_item = $result_banner_news->fetch_assoc()) {
                 ?>
-                        <div class="carousel-item <?php echo ($slide_count == 0) ? 'active' : ''; ?>" style="height: 400px; background-color: #777;">
-                            <img src="<?php echo htmlspecialchars($news_item['image_url']); ?>" class="d-block w-100" alt="<?php echo htmlspecialchars($news_item['title']); ?>" style="height: 400px; object-fit: cover;">
+                        <div class="carousel-item <?php echo ($slide_count == 0) ? 'active' : ''; ?>" style="height: 400px; background-color: #e9ecef;">
+                            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" 
+                                 data-src="<?php echo htmlspecialchars($news_item['image_url']); ?>" 
+                                 class="d-block w-100 lazy-load-image" 
+                                 alt="<?php echo htmlspecialchars($news_item['title']); ?>" 
+                                 style="height: 400px; object-fit: cover;">
                             <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 p-3 rounded">
                                 <h5><?php echo htmlspecialchars($news_item['title']); ?></h5>
                                 <p><?php echo htmlspecialchars(mb_substr(strip_tags($news_item['content']), 0, 100)); ?>...</p>
@@ -152,5 +156,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
     <script src="js/main.js"></script>
+    <script src="js/image-loader.js"></script>
 </body>
 </html>

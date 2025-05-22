@@ -48,7 +48,13 @@
                     <div class="col-md-12 mb-4" id="news-<?php echo $row['id']; ?>">
                         <div class="card">
                             <?php if (!empty($row['image_url'])): ?>
-                                <img src="<?php echo htmlspecialchars($row['image_url']); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($row['title']); ?>" style="max-height: 300px; object-fit: cover;">
+                                <div class="image-loader-wrapper" style="max-height: 300px; background-color: #e9ecef;">
+                                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" 
+                                         data-src="<?php echo htmlspecialchars($row['image_url']); ?>" 
+                                         class="card-img-top lazy-load-image" 
+                                         alt="<?php echo htmlspecialchars($row['title']); ?>" 
+                                         style="max-height: 300px; object-fit: cover;">
+                                </div>
                             <?php endif; ?>
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo htmlspecialchars($row['title']); ?></h5>
@@ -80,5 +86,6 @@
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <script src="js/image-loader.js"></script>
 </body>
 </html>
