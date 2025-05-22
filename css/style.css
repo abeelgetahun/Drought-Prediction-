@@ -1,0 +1,117 @@
+/* General Body Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    padding-top: 56px; /* Adjust based on navbar height */
+}
+
+/* Navigation Bar Styling */
+.navbar {
+    margin-bottom: 20px;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+    color: #333;
+}
+
+/* Paragraphs */
+p {
+    line-height: 1.6;
+    color: #555;
+}
+
+/* Links */
+a {
+    color: #007bff;
+}
+
+a:hover {
+    color: #0056b3;
+    text-decoration: none;
+}
+
+/* Homepage Banner */
+#homepage-banner {
+    background-color: #f8f9fa;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+/* Search Input and Button */
+.form-control { /* Target Bootstrap's input class */
+    margin-right: 5px;
+}
+
+/* News Ticker Styling */
+.news-ticker-container {
+    background-color: #f8f9fa; /* Light grey background */
+    padding: 10px 15px;
+    border-bottom: 1px solid #e0e0e0;
+    overflow: hidden; /* Important for containing the scrolling list */
+    white-space: nowrap; /* Keep items in a single line if horizontal */
+    display: flex;
+    align-items: center;
+    position: relative; /* For potential absolute positioning of elements inside */
+    margin-top: 56px; /* Adjust if navbar height changes - this is for fixed-top ticker */
+    z-index: 1025; /* Below fixed-top navbar (1030) but above most content */
+}
+
+.fixed-top-ticker { /* Added to make ticker stick below navbar */
+    position: fixed;
+    top: 0; /* Will be adjusted by navbar height via margin-top */
+    left: 0;
+    right: 0;
+}
+
+
+.ticker-label {
+    font-weight: bold;
+    margin-right: 10px;
+    color: #333;
+    white-space: nowrap;
+}
+
+.ticker-content {
+    overflow: hidden; /* Crucial for the scrolling effect */
+    position: relative;
+    height: 24px; /* Adjust based on font size to show one line */
+    flex-grow: 1; /* Allows content to take remaining space */
+}
+
+#news-ticker-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: absolute; /* Allows smooth animation */
+    white-space: nowrap; /* Keep list items on one line for horizontal scroll */
+    /* For vertical scroll, this would be different, items block & width 100% */
+}
+
+#news-ticker-list li {
+    display: inline-block; /* For horizontal scrolling */
+    margin-right: 30px; /* Space between news items */
+    font-size: 0.9rem;
+    line-height: 24px; /* Match height of ticker-content */
+}
+
+#news-ticker-list li a {
+    text-decoration: none;
+    color: #007bff; /* Bootstrap primary color */
+}
+
+#news-ticker-list li a:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}
+
+
+/* Footer Styling */
+.footer { /* Renamed to avoid conflict if Bootstrap has a 'footer' class with higher specificity */
+    padding: 20px 0;
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    margin-top: 30px; /* Ensure space before footer */
+    /* position: relative; */ /* Removed fixed-bottom behavior from here as it was on individual pages */
+}
