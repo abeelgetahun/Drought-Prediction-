@@ -1,65 +1,229 @@
-/* General Body Styles */
-body {
-    font-family: 'Arial', sans-serif;
-    padding-top: 56px; /* Adjust based on navbar height */
+:root {
+    --color-background: #F8F5ED; /* Off-white / Pale wheat */
+    --color-header-nav: #D4A373;  /* Golden sand / Desert brown */
+    --color-text-dark: #4A4A4A;   /* Dark grey */
+    --color-text-earthy: #6B4F4F; /* Earthy brown */
+    --color-accent-olive: #8A9A5B; /* Olive green */
+    --color-accent-orange: #F0A500; /* Soft orange */
+    --color-footer-bg: #EAD8C0;    /* Wheat or dry clay tone */
+    --font-primary: 'Open Sans', sans-serif; /* Example: Open Sans */
+    --border-radius-standard: 0.25rem; /* Bootstrap's default, can adjust */
+    --box-shadow-standard: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-/* Navigation Bar Styling */
-.navbar {
-    margin-bottom: 20px;
+/* General Body Styles */
+body {
+    font-family: var(--font-primary);
+    padding-top: 56px; /* Adjust based on navbar height - This will be managed by specific page styles if ticker is present */
+    background-color: var(--color-background);
+    color: var(--color-text-dark);
+    line-height: 1.6; /* Default line height */
 }
+
+/* Updated Navigation Bar Styling */
+.navbar.fixed-top {
+    background-color: rgba(248, 245, 237, 0.85); /* var(--color-background) with opacity */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--color-accent-olive);
+    box-shadow: var(--box-shadow-standard);
+    padding-top: 0.75rem; /* Added padding */
+    padding-bottom: 0.75rem; /* Added padding */
+}
+
+.navbar .container { /* Ensure container is used for alignment */
+    max-width: 1200px; /* Or your preferred max width */
+}
+
+.navbar-brand.site-title {
+    color: var(--color-header-nav); /* Golden Sand for brand */
+    font-weight: 700;
+    font-size: 1.75rem;
+}
+.navbar-brand.site-title:hover {
+    color: var(--color-accent-orange);
+}
+
+.nav.page-indicators .nav-link {
+    color: var(--color-text-earthy);
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    margin: 0 0.25rem;
+    border-radius: var(--border-radius-standard);
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.nav.page-indicators .nav-link:hover {
+    color: var(--color-accent-orange);
+    background-color: rgba(0,0,0,0.05);
+}
+
+.nav.page-indicators .nav-link.active {
+    color: var(--color-accent-olive);
+    font-weight: 700;
+    /* border-bottom: 3px solid var(--color-accent-orange); */ /* Alternative active style */
+    background-color: rgba(138, 154, 91, 0.1); /* Light olive background for active */
+}
+
+.site-icons .nav-icon {
+    color: var(--color-text-earthy);
+    font-size: 1.25rem; /* Slightly larger icons */
+    transition: color 0.2s ease;
+}
+.site-icons .nav-icon:hover {
+    color: var(--color-accent-orange);
+}
+
+.hamburger-menu .dropdown-menu {
+    border-radius: var(--border-radius-standard);
+    box-shadow: var(--box-shadow-standard);
+    border: 1px solid var(--color-accent-olive);
+    margin-top: 0.5rem; /* Give some space from the icon */
+}
+.hamburger-menu .dropdown-item {
+    color: var(--color-text-earthy);
+    font-weight: 500;
+}
+.hamburger-menu .dropdown-item:hover {
+    background-color: rgba(138, 154, 91, 0.1); /* Light olive */
+    color: var(--color-accent-olive);
+}
+.hamburger-menu .dropdown-item.active { /* For active state in dropdown */
+    background-color: var(--color-accent-olive);
+    color: #fff;
+}
+
+/* Adjust body padding for fixed navbar */
+body {
+    padding-top: 66px; /* Default for fixed navbar. index.php overrides for ticker. */
+}
+
+/* Remove default top padding from main if body already has it, use specific main padding for index.php */
+main:not(.p-0) { /* Target main elements that don't have p-0 like index.php's main */
+    /* The mt-5 pt-4 classes on other pages might be excessive now if body has padding-top */
+    /* We can remove them or adjust. For now, body padding should handle it. */
+    /* Let's rely on body padding and adjust main content container if needed on specific pages */
+}
+
 
 /* Headings */
 h1, h2, h3, h4, h5, h6 {
-    color: #333;
+    color: var(--color-header-nav); /* Golden sand for headers */
+    font-weight: 600; /* Bolder headings */
+    margin-bottom: 0.75rem;
 }
+
+h1 { font-size: 2.25rem; }
+h2 { font-size: 1.75rem; }
+h3 { font-size: 1.5rem; }
 
 /* Paragraphs */
 p {
-    line-height: 1.6;
-    color: #555;
+    color: var(--color-text-earthy); /* Earthy brown for paragraphs */
+    margin-bottom: 1rem;
 }
 
 /* Links */
 a {
-    color: #007bff;
-}
-
-a:hover {
-    color: #0056b3;
+    color: var(--color-accent-olive);
     text-decoration: none;
 }
 
-/* Homepage Banner */
-#homepage-banner {
-    background-color: #f8f9fa;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 5px;
+a:hover {
+    color: var(--color-accent-orange);
+    text-decoration: underline;
 }
 
-/* Search Input and Button */
-.form-control { /* Target Bootstrap's input class */
-    margin-right: 5px;
+/* Buttons - Basic Bootstrap Overrides */
+.btn {
+    border-radius: var(--border-radius-standard);
+    box-shadow: var(--box-shadow-standard);
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.btn-primary {
+    background-color: var(--color-accent-olive);
+    border-color: var(--color-accent-olive);
+    color: #fff;
+}
+.btn-primary:hover {
+    background-color: #7a8a4f; /* Darker olive */
+    border-color: #7a8a4f;
+    color: #fff;
+}
+
+.btn-secondary {
+    background-color: var(--color-header-nav);
+    border-color: var(--color-header-nav);
+    color: var(--color-text-dark);
+}
+.btn-secondary:hover {
+    background-color: #c89361; /* Darker sand */
+    border-color: #c89361;
+    color: var(--color-text-dark);
+}
+
+.btn-outline-success { /* Often used for search */
+    color: var(--color-accent-olive);
+    border-color: var(--color-accent-olive);
+}
+.btn-outline-success:hover {
+    background-color: var(--color-accent-olive);
+    color: #fff;
+}
+
+
+/* Cards - Basic Bootstrap Overrides */
+.card {
+    border-radius: var(--border-radius-standard);
+    box-shadow: var(--box-shadow-standard);
+    border: 1px solid #ddd; /* Lighter border */
+}
+
+.card-header {
+    background-color: var(--color-header-nav); /* Golden sand header for cards */
+    color: var(--color-text-dark);
+    border-bottom: 1px solid #ddd;
+    font-weight: 600;
+}
+
+/* Forms - Basic Bootstrap Overrides */
+.form-control {
+    border-radius: var(--border-radius-standard);
+    border: 1px solid #ccc;
+}
+.form-control:focus {
+    border-color: var(--color-accent-olive);
+    box-shadow: 0 0 0 0.2rem rgba(138, 154, 91, 0.25); /* Olive focus glow */
+}
+
+/* Homepage Banner specific styles */
+#homepage-banner {
+    /* background-color: var(--color-footer-bg); Light wheat for banner background */
+    /* padding: 20px; */ /* Bootstrap carousel usually handles its padding */
+    /* margin-bottom: 20px; */
+    /* border-radius: var(--border-radius-standard); */
 }
 
 /* News Ticker Styling */
 .news-ticker-container {
-    background-color: #f8f9fa; /* Light grey background */
+    background-color: var(--color-footer-bg); /* Wheat/dry clay for ticker background */
     padding: 10px 15px;
-    border-bottom: 1px solid #e0e0e0;
-    overflow: hidden; /* Important for containing the scrolling list */
-    white-space: nowrap; /* Keep items in a single line if horizontal */
+    border-bottom: 1px solid var(--color-header-nav); /* Golden sand border */
+    overflow: hidden;
+    white-space: nowrap;
     display: flex;
     align-items: center;
-    position: relative; /* For potential absolute positioning of elements inside */
-    margin-top: 56px; /* Adjust if navbar height changes - this is for fixed-top ticker */
-    z-index: 1025; /* Below fixed-top navbar (1030) but above most content */
+    position: relative;
+    margin-top: 66px; /* Approx new navbar height */
+    z-index: 1025;
 }
 
-.fixed-top-ticker { /* Added to make ticker stick below navbar */
+.fixed-top-ticker {
     position: fixed;
-    top: 0; /* Will be adjusted by navbar height via margin-top */
+    top: 0;
     left: 0;
     right: 0;
 }
@@ -68,84 +232,259 @@ a:hover {
 .ticker-label {
     font-weight: bold;
     margin-right: 10px;
-    color: #333;
+    color: var(--color-text-earthy); /* Earthy brown label */
     white-space: nowrap;
 }
 
 .ticker-content {
-    overflow: hidden; /* Crucial for the scrolling effect */
+    overflow: hidden;
     position: relative;
-    height: 24px; /* Adjust based on font size to show one line */
-    flex-grow: 1; /* Allows content to take remaining space */
+    height: 24px;
+    flex-grow: 1;
 }
 
 #news-ticker-list {
     list-style: none;
     padding: 0;
     margin: 0;
-    position: absolute; /* Allows smooth animation */
-    white-space: nowrap; /* Keep list items on one line for horizontal scroll */
-    /* For vertical scroll, this would be different, items block & width 100% */
+    position: absolute;
+    white-space: nowrap;
 }
 
 #news-ticker-list li {
-    display: inline-block; /* For horizontal scrolling */
-    margin-right: 30px; /* Space between news items */
+    display: inline-block;
+    margin-right: 30px;
     font-size: 0.9rem;
-    line-height: 24px; /* Match height of ticker-content */
+    line-height: 24px;
 }
 
 #news-ticker-list li a {
     text-decoration: none;
-    color: #007bff; /* Bootstrap primary color */
+    color: var(--color-accent-olive); /* Olive green for ticker links */
 }
 
 #news-ticker-list li a:hover {
     text-decoration: underline;
-    color: #0056b3;
+    color: var(--color-accent-orange); /* Soft orange hover */
 }
 
 
 /* Lazy Load Image Styling */
 .lazy-load-image {
-    /* Optional: transition for smoother appearance */
     transition: opacity 0.3s ease-in-out;
-    opacity: 1; /* Start with full opacity for the placeholder/spinner */
+    opacity: 1;
 }
 
 .lazy-load-image.loading {
-    /* If using a very small src like a transparent pixel, the background will show */
-    background: #f0f0f0 url('../images/spinner.gif') no-repeat center center;
-    /* Ensure the image itself doesn't look broken if src is tiny and background is main cue */
-    /* min-height and min-width might be needed if the wrapper isn't sized */
+    background: var(--color-background) url('../images/spinner.gif') no-repeat center center; /* Use background color variable */
 }
 
 .lazy-load-image.loaded {
-    /* Once loaded, the actual image src takes over, background is irrelevant */
     background-image: none;
     opacity: 1;
 }
 
 .lazy-load-image.error {
-    /* Style for images that failed to load, e.g., show a fallback icon or border */
-    background-image: none; /* Remove spinner */
-    /* You could add a background image pointing to a 'broken-image.svg' or similar */
+    background-image: none;
 }
 
 .image-loader-wrapper {
-    position: relative; /* Useful if you want to position a spinner element absolutely inside */
-    /* background-color: #e9ecef; */ /* Already on elements */
-    /* min-height: 200px; */ /* Example, adjust based on expected image aspect ratio or specific element styling */
-    display: block; /* or flex if needed for alignment of an internal spinner */
+    position: relative;
+    display: block;
+    background-color: var(--color-background); /* Ensure wrapper has background */
 }
 
 
 /* Footer Styling */
-.footer { /* Renamed to avoid conflict if Bootstrap has a 'footer' class with higher specificity */
-    padding: 20px 0;
-    background-color: #343a40;
-    color: white;
+/* Commenting out the old .footer styles to avoid conflict with .site-footer */
+/*
+.footer { 
+    padding: 25px 0; 
+    background-color: var(--color-footer-bg); 
+    color: var(--color-text-earthy); 
     text-align: center;
-    margin-top: 30px; /* Ensure space before footer */
-    /* position: relative; */ /* Removed fixed-bottom behavior from here as it was on individual pages */
+    margin-top: 40px; 
+    border-top: 2px solid var(--color-header-nav); 
 }
+*/
+
+/* New Site Footer Styling */
+.site-footer {
+    background-color: var(--color-footer-bg); /* Wheat or dry clay tone */
+    color: var(--color-text-earthy); /* Default text color for the footer */
+    padding-top: 2.5rem; 
+    padding-bottom: 1.5rem; /* Reduced bottom padding slightly */
+    border-top: 3px solid var(--color-header-nav); /* Accent border */
+    font-size: 0.9rem; 
+}
+
+.site-footer h5 {
+    color: var(--color-header-nav); /* Golden sand for footer headings */
+    font-weight: 600;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+/* Ensure paragraphs within the footer also use the earthy color, overriding general p if needed */
+.site-footer p {
+    color: var(--color-text-earthy);
+}
+.site-footer p.small { /* For the about text */
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--color-text-earthy); /* Explicitly set for specificity */
+}
+
+.site-footer .footer-link {
+    color: var(--color-text-earthy);
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+.site-footer .footer-link:hover {
+    color: var(--color-accent-olive);
+    text-decoration: underline;
+}
+
+.site-footer .list-unstyled li {
+    margin-bottom: 0.5rem;
+}
+
+.site-footer .social-icons .social-icon {
+    display: inline-block;
+    margin-right: 15px; 
+    font-size: 1.5rem; 
+    color: var(--color-text-earthy);
+    transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+.site-footer .social-icons .social-icon:last-child {
+    margin-right: 0;
+}
+.site-footer .social-icons .social-icon:hover {
+    color: var(--color-accent-olive);
+    transform: scale(1.15);
+}
+
+.site-footer hr.my-3 { /* Targeting the specific hr */
+    border-top: 1px solid rgba(107, 79, 79, 0.2); /* var(--color-text-earthy) with alpha */
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Targeting the copyright paragraph specifically for color if .text-muted is too light */
+.site-footer .text-center .small { 
+    color: var(--color-text-earthy) !important; 
+    font-size: 0.85rem;
+}
+.site-footer .text-center .small p { /* If copyright is wrapped in <p> */
+    color: var(--color-text-earthy) !important;
+    margin-bottom: 0;
+}
+
+
+/* Homepage Enhancements */
+.intro-section {
+    padding: 2rem 0;
+    background-color: rgba(234, 216, 192, 0.2); /* Light --color-footer-bg with transparency */
+    border-radius: var(--border-radius-standard);
+}
+
+.intro-section .section-title, /* Target specific h2 if needed */
+.research-highlights .section-title,
+.key-focus-areas .section-title { /* Assuming you add this class to the H2 */
+    color: var(--color-header-nav); /* Golden Sand */
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+.intro-section .lead {
+    color: var(--color-text-dark);
+    font-size: 1.15rem;
+    margin-bottom: 1rem;
+}
+
+.intro-section p:not(.lead) {
+    color: var(--color-text-earthy);
+    font-size: 1rem;
+}
+
+.research-highlights .card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.research-highlights .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+}
+
+.research-highlights .card-title {
+    color: var(--color-accent-olive); /* Olive green for card titles */
+    font-size: 1.1rem; /* Slightly smaller than section titles */
+}
+
+.research-highlights .card-text.summary {
+    font-size: 0.9rem;
+    color: var(--color-text-earthy);
+    min-height: 70px; /* Ensure some consistency in text height before "Read More" */
+}
+
+.research-highlights .btn-outline-primary { /* Assuming this is the "Read More" button */
+    color: var(--color-accent-olive);
+    border-color: var(--color-accent-olive);
+    font-weight: 600;
+}
+.research-highlights .btn-outline-primary:hover {
+    background-color: var(--color-accent-olive);
+    color: #fff;
+}
+.research-highlights .btn-outline-primary i {
+    margin-left: 5px;
+    transition: transform 0.2s ease-in-out;
+}
+.research-highlights .btn-outline-primary:hover i {
+    transform: translateX(3px);
+}
+
+
+/* Key Focus Area Cards on Homepage */
+.key-focus-areas .card {
+    background-color: var(--color-background);
+    border: 1px solid var(--color-accent-olive);
+}
+.key-focus-areas .card-title {
+     color: var(--color-header-nav);
+}
+.key-focus-areas .btn-accent-olive { /* Custom class for the button */
+    background-color: var(--color-accent-olive);
+    border-color: var(--color-accent-olive);
+    color: #fff;
+}
+.key-focus-areas .btn-accent-olive:hover {
+    background-color: #7a8a4f; /* Darker olive */
+    border-color: #7a8a4f;
+}
+
+
+/* Fade-in Animation for Cards */
+.research-card { /* Applied to .col in the HTML for research and focus cards */
+    opacity: 0;
+    transform: translateY(30px); /* Start slightly lower */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.research-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Removing obsolete .footer specific styles */
+/*
+.footer p {
+    margin-bottom: 0; 
+    color: var(--color-text-earthy); 
+}
+
+.footer a { 
+    color: var(--color-accent-olive);
+}
+.footer a:hover {
+    color: var(--color-accent-orange);
+}
+*/

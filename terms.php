@@ -1,12 +1,13 @@
+<?php require_once 'config/db.php'; // Include if any DB interaction is needed, or for consistency ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DroughtWatch - About Us</title>
+    <title>DroughtWatch - Terms of Use</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -14,7 +15,6 @@
         <nav class="navbar navbar-expand-lg fixed-top">
             <div class="container">
                 <a class="navbar-brand site-title" href="index.php">DroughtWatch</a>
-
                 <div class="mx-auto d-none d-lg-block">
                     <ul class="nav page-indicators">
                         <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
@@ -24,7 +24,6 @@
                         <li class="nav-item"><a class="nav-link" href="stories.php">Stories</a></li>
                     </ul>
                 </div>
-
                 <div class="d-flex align-items-center site-icons">
                     <a href="#" id="search-icon" class="nav-icon p-2"><i class="fas fa-search"></i></a>
                     <a href="#" id="night-mode-toggle" class="nav-icon p-2"><i class="fas fa-moon"></i></a>
@@ -39,7 +38,7 @@
                             <li class="d-lg-none"><a class="dropdown-item" href="events.php">Events</a></li>
                             <li class="d-lg-none"><a class="dropdown-item" href="stories.php">Stories</a></li>
                             <li><hr class="dropdown-divider d-lg-none"></li>
-                            <li><a class="dropdown-item active" href="about.php">About Us</a></li>
+                            <li><a class="dropdown-item" href="about.php">About Us</a></li>
                             <li><a class="dropdown-item" href="thematic_focus.php">Thematic Focus</a></li>
                             <li><a class="dropdown-item" href="contact.php">Contact Us</a></li>
                             <li><a class="dropdown-item" href="admin/login.php">Admin Login</a></li>
@@ -50,12 +49,17 @@
             </div>
         </nav>
     </header>
+
     <main class="container mb-5" style="padding-top: 2rem;"> {/* Consistent padding */}
-        <h1>About Us</h1>
-        <section>
-            <p>This page will contain information about the Drought Prediction System project and team.</p>
-        </section>
+        <div class="row">
+            <div class="col-12">
+                <h1 class="my-4">Terms of Use</h1>
+                <p>Content for the Terms of Use page is coming soon.</p>
+                <p>Please check back later.</p>
+            </div>
+        </div>
     </main>
+
     <footer class="site-footer mt-auto py-4">
         <div class="container">
             <div class="row">
@@ -89,7 +93,10 @@
             </div>
         </div>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/image-loader.js"></script> 
 </body>
 </html>
