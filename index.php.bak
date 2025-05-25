@@ -70,56 +70,55 @@
         </div>
     </div>
 
-    <main class="container-fluid p-0"> {/* Approx 66px for navbar + 45px for ticker */}
-        <!--
+    <main class="container-fluid p-0" style="padding-top: 111px;"> {/* Approx 66px for navbar + 45px for ticker */}
         <div id="homepage-banner" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
                 <?php
-                // $sql_banner_news_count = "SELECT COUNT(*) as total FROM news WHERE image_url IS NOT NULL AND image_url != '' ORDER BY publish_date DESC LIMIT 3";
-                // $result_banner_news_count = $mysqli->query($sql_banner_news_count);
-                // $total_slides = 0;
-                // if($result_banner_news_count && $result_banner_news_count->num_rows > 0){
-                //     $total_slides = $result_banner_news_count->fetch_assoc()['total'];
-                // }
-                // for ($i = 0; $i < $total_slides; $i++) {
-                //     echo '<button type="button" data-bs-target="#homepage-banner" data-bs-slide-to="' . $i . '" class="' . ($i == 0 ? 'active' : '') . '" aria-current="' . ($i == 0 ? 'true' : 'false') . '" aria-label="Slide ' . ($i + 1) . '"></button>';
-                // }
+                $sql_banner_news_count = "SELECT COUNT(*) as total FROM news WHERE image_url IS NOT NULL AND image_url != '' ORDER BY publish_date DESC LIMIT 3";
+                $result_banner_news_count = $mysqli->query($sql_banner_news_count);
+                $total_slides = 0;
+                if($result_banner_news_count && $result_banner_news_count->num_rows > 0){
+                    $total_slides = $result_banner_news_count->fetch_assoc()['total'];
+                }
+                for ($i = 0; $i < $total_slides; $i++) {
+                    echo '<button type="button" data-bs-target="#homepage-banner" data-bs-slide-to="' . $i . '" class="' . ($i == 0 ? 'active' : '') . '" aria-current="' . ($i == 0 ? 'true' : 'false') . '" aria-label="Slide ' . ($i + 1) . '"></button>';
+                }
                 ?>
             </div>
             <div class="carousel-inner">
                 <?php
-                // $sql_banner_news = "SELECT id, title, content, image_url FROM news WHERE image_url IS NOT NULL AND image_url != '' ORDER BY publish_date DESC LIMIT 3";
-                // $result_banner_news = $mysqli->query($sql_banner_news);
-                // $slide_count = 0;
-                // if ($result_banner_news && $result_banner_news->num_rows > 0) {
-                //     while ($news_item = $result_banner_news->fetch_assoc()) {
+                $sql_banner_news = "SELECT id, title, content, image_url FROM news WHERE image_url IS NOT NULL AND image_url != '' ORDER BY publish_date DESC LIMIT 3";
+                $result_banner_news = $mysqli->query($sql_banner_news);
+                $slide_count = 0;
+                if ($result_banner_news && $result_banner_news->num_rows > 0) {
+                    while ($news_item = $result_banner_news->fetch_assoc()) {
                 ?>
-                        <div class="carousel-item <?php // echo ($slide_count == 0) ? 'active' : ''; ?>" style="height: 400px; background-color: #e9ecef;">
+                        <div class="carousel-item <?php echo ($slide_count == 0) ? 'active' : ''; ?>" style="height: 400px; background-color: #e9ecef;">
                             <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" 
-                                 data-src="<?php // echo htmlspecialchars($news_item['image_url']); ?>" 
+                                 data-src="<?php echo htmlspecialchars($news_item['image_url']); ?>" 
                                  class="d-block w-100 lazy-load-image" 
-                                 alt="<?php // echo htmlspecialchars($news_item['title']); ?>" 
+                                 alt="<?php echo htmlspecialchars($news_item['title']); ?>" 
                                  style="height: 400px; object-fit: cover;">
                             <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 p-3 rounded">
-                                <h5><?php // echo htmlspecialchars($news_item['title']); ?></h5>
-                                <p><?php // echo htmlspecialchars(mb_substr(strip_tags($news_item['content']), 0, 100)); ?>...</p>
-                                <a href="news.php#news-<?php // echo $news_item['id']; ?>" class="btn btn-primary btn-sm">Read More</a>
+                                <h5><?php echo htmlspecialchars($news_item['title']); ?></h5>
+                                <p><?php echo htmlspecialchars(mb_substr(strip_tags($news_item['content']), 0, 100)); ?>...</p>
+                                <a href="news.php#news-<?php echo $news_item['id']; ?>" class="btn btn-primary btn-sm">Read More</a>
                             </div>
                         </div>
                 <?php
-                //         $slide_count++;
-                //     }
-                //     $result_banner_news->free();
-                // } else {
-                //     echo '<div class="carousel-item active" style="height: 400px; background-color: #777;">'; // Fallback if no news with images
-                //     echo '<div class="carousel-caption d-none d-md-block">';
-                //     echo '<h5>Welcome to DroughtWatch</h5>';
-                //     echo '<p>Monitoring and predicting drought conditions.</p>';
-                //     echo '</div></div>';
-                // }
+                        $slide_count++;
+                    }
+                    $result_banner_news->free();
+                } else {
+                    echo '<div class="carousel-item active" style="height: 400px; background-color: #777;">'; // Fallback if no news with images
+                    echo '<div class="carousel-caption d-none d-md-block">';
+                    echo '<h5>Welcome to DroughtWatch</h5>';
+                    echo '<p>Monitoring and predicting drought conditions.</p>';
+                    echo '</div></div>';
+                }
                 ?>
             </div>
-            <?php // if ($total_slides > 1): ?>
+            <?php if ($total_slides > 1): ?>
             <button class="carousel-control-prev" type="button" data-bs-target="#homepage-banner" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
@@ -128,23 +127,10 @@
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
-            <?php // endif; ?>
+            <?php endif; ?>
         </div>
-        -->
 
-        <!-- Parallax Section -->
-        <section id="parallax-home" class="parallax-container">
-            <div class="parallax-layer layer-back" style="background-image: url('images/image1.jpg');"></div>
-            <div class="parallax-layer layer-middle" style="background-image: url('images/image2.jpg');"></div>
-            <div class="parallax-layer layer-front" style="background-image: url('images/image3.jpg');"></div>
-            <div class="parallax-welcome">
-                <h1>Welcome to DroughtWatch</h1>
-                <p>Your primary source for drought monitoring and prediction.</p>
-            </div>
-        </section>
-        <!-- End Parallax Section -->
-
-        <section class="container my-5 intro-section text-center first-content-after-parallax">
+        <section class="container my-5 intro-section text-center">
             <div class="row">
                 <div class="col-md-10 mx-auto">
                     <i class="fas fa-tint fa-3x mb-3 text-primary"></i> {/* Example Icon */}
