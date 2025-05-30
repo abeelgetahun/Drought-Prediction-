@@ -14,7 +14,7 @@ include 'includes/header.php';
             <div class="col-lg-6">
                 <div class="hero-content">
                     <h1 class="hero-title">
-                        hi. this is<br>
+                        hello. this is<br>
                         <span style="color: var(--current-accent);">droughtwatch.</span>
                     </h1>
                     <p class="hero-subtitle">
@@ -36,11 +36,21 @@ include 'includes/header.php';
             <div class="col-lg-6">
                 <div class="hero-visual">
                     <div class="geometric-shapes">
-                        <div class="shape shape-1" style="--rotation: 15deg;"></div>
-                        <div class="shape shape-2" style="--rotation: -10deg;"></div>
-                        <div class="shape shape-3" style="--rotation: 25deg;"></div>
-                        <div class="shape shape-4" style="--rotation: -20deg;"></div>
-                        <div class="shape shape-5" style="--rotation: 5deg;"></div>
+                        <div class="shape shape-1" style="--rotation: 15deg;">
+                            <img src="assets/images/hero/shape1.jpg" alt="Drought Monitoring" class="shape-image">
+                        </div>
+                        <div class="shape shape-2" style="--rotation: -10deg;">
+                            <img src="assets/images/hero/shape2.jpg" alt="Satellite Data" class="shape-image">
+                        </div>
+                        <div class="shape shape-3" style="--rotation: 25deg;">
+                            <img src="assets/images/hero/shape3.jpg" alt="Climate Analysis" class="shape-image">
+                        </div>
+                        <div class="shape shape-4" style="--rotation: -20deg;">
+                            <img src="assets/images/hero/shape4.jpg" alt="Research Data" class="shape-image">
+                        </div>
+                        <div class="shape shape-5" style="--rotation: 5deg;">
+                            <img src="assets/images/hero/shape5.jpg" alt="Global Impact" class="shape-image">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -180,5 +190,47 @@ include 'includes/header.php';
         </div>
     </div>
 </section>
+
+<style>
+/* Additional CSS for Image Shapes */
+.shape-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: var(--image-shadow);
+    transition: all 0.3s ease;
+}
+
+.shape:hover .shape-image {
+    transform: scale(1.05);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Override the background gradient for shapes when using images */
+.shape {
+    background: none !important;
+    overflow: hidden;
+}
+
+/* Add a subtle overlay for better text contrast if needed */
+.shape::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, transparent 0%, rgba(0,0,0,0.1) 100%);
+    border-radius: 10px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.shape:hover::after {
+    opacity: 1;
+}
+</style>
 
 <?php include 'includes/footer.php'; ?>
