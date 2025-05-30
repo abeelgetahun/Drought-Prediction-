@@ -1,126 +1,437 @@
-<?php require_once '../config/db.php'; ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DroughtWatch - Events</title>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-lg fixed-top">
-            <div class="container">
-                <a class="navbar-brand site-title" href="index.php">DroughtWatch</a>
+<?php 
+require_once '../config/db.php';
+$pageTitle = "DroughtWatch - Events";
+$pageDescription = "Discover upcoming drought research events, conferences, and community gatherings.";
+$basePath = '../';
+$cssPath = '../';
+include '../includes/header.php';
+?>
 
-                <div class="mx-auto d-none d-lg-block">
-                    <ul class="nav page-indicators">
-                        <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="researchers.php">Research</a></li>
-                        <li class="nav-item"><a class="nav-link" href="news.php">News</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="events.php">Events</a></li>
-                        <li class="nav-item"><a class="nav-link" href="stories.php">Stories</a></li>
-                    </ul>
+<div class="container mt-5 pt-5">
+    <!-- Page Header -->
+    <div class="row align-items-center mb-4">
+        <div class="col-md-8">
+            <h1 class="page-title">Events & Conferences</h1>
+            <p class="text-muted">Join us at upcoming drought research events and community gatherings</p>
+        </div>
+        <div class="col-md-4">
+            <div class="event-stats">
+                <?php
+                $upcoming_count = $mysqli->query("SELECT COUNT(*) as count FROM events WHERE event_date >= NOW()")->fetch_assoc()['count'];
+                $past_count = $mysqli->query("SELECT COUNT(*) as count FROM events WHERE event_date < NOW()")->fetch_assoc()['count'];
+                ?>
+                <div class="stat-item">
+                    <span class="stat-number"><?php echo $upcoming_count; ?></span>
+                    <span class="stat-label">Upcoming</span>
                 </div>
-
-                <div class="d-flex align-items-center site-icons">
-                    <a href="#" id="search-icon" class="nav-icon p-2"><i class="fas fa-search"></i></a>
-                    <a href="#" id="night-mode-toggle" class="nav-icon p-2"><i class="fas fa-moon"></i></a>
-                    <div class="dropdown hamburger-menu">
-                        <a href="#" id="hamburger-icon" class="nav-icon p-2" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-bars"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="hamburger-icon">
-                            <li class="d-lg-none"><a class="dropdown-item" href="index.php">Home</a></li>
-                            <li class="d-lg-none"><a class="dropdown-item" href="researchers.php">Research</a></li>
-                            <li class="d-lg-none"><a class="dropdown-item" href="news.php">News</a></li>
-                            <li class="d-lg-none"><a class="dropdown-item active" href="events.php">Events</a></li>
-                            <li class="d-lg-none"><a class="dropdown-item" href="stories.php">Stories</a></li>
-                            <li><hr class="dropdown-divider d-lg-none"></li>
-                            <li><a class="dropdown-item" href="about.php">About Us</a></li>
-                            <li><a class="dropdown-item" href="thematic_focus.php">Thematic Focus</a></li>
-                            <li><a class="dropdown-item" href="contact.php">Contact Us</a></li>
-                            <li><a class="dropdown-item" href="admin/login.php">Admin Login</a></li>
-                            <li><a class="dropdown-item" href="#">Support Focus (Placeholder)</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <main class="container mb-5" style="padding-top: 2rem;"> {/* Consistent padding */}
-        <h1 class="my-4">Upcoming & Past Events</h1>
-        <section class="list-group">
-            <?php
-            $sql = "SELECT id, name, event_date, location, description FROM events ORDER BY event_date DESC";
-            $result = $mysqli->query($sql);
-
-            if ($result && $result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-            ?>
-                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start mb-3" id="event-<?php echo $row['id']; ?>">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1"><?php echo htmlspecialchars($row['name']); ?></h5>
-                            <small><?php echo date('F j, Y, g:i a', strtotime($row['event_date'])); ?></small>
-                        </div>
-                        <p class="mb-1"><strong>Location:</strong> <?php echo htmlspecialchars($row['location']); ?></p>
-                        <p class="mb-1">
-                            <?php 
-                            // Display a snippet or full description.
-                            $description_snippet = mb_substr(strip_tags($row['description']), 0, 200);
-                            echo nl2br(htmlspecialchars($description_snippet)) . (mb_strlen($row['description']) > 200 ? '...' : ''); 
-                            ?>
-                        </p>
-                        <!-- If there's a more detailed page for events, link here -->
-                        <!-- <small>Click to read more.</small> -->
-                    </a>
-            <?php
-                }
-                $result->free();
-            } else {
-                echo "<p class='list-group-item'>No events found.</p>";
-            }
-            // $mysqli->close(); 
-            ?>
-        </section>
-    </main>
-    <footer class="site-footer mt-auto py-4">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 mb-4 mb-lg-0">
-                    <h5>About DroughtWatch</h5>
-                    <p class="text-muted small">DroughtWatch is dedicated to providing timely and accurate information on drought conditions, leveraging research and data analysis to support communities and decision-makers.</p>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                    <h5>Quick Links</h5>
-                    <ul class="list-unstyled small">
-                        <li><a href="privacy.php" class="footer-link">Privacy Policy</a></li>
-                        <li><a href="terms.php" class="footer-link">Terms of Use</a></li>
-                        <li><a href="contact.php" class="footer-link">Contact Us</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <h5>Connect With Us</h5>
-                    <div class="social-icons">
-                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-            </div>
-            <hr class="my-3">
-            <div class="row">
-                <div class="col text-center text-muted small">
-                    &copy; <?php echo date("Y"); ?> DroughtWatch. All Rights Reserved.
+                <div class="stat-item">
+                    <span class="stat-number"><?php echo $past_count; ?></span>
+                    <span class="stat-label">Past Events</span>
                 </div>
             </div>
         </div>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
-</body>
-</html>
+    </div>
+
+    <!-- Event Filter Tabs -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="event-filters">
+                <button class="filter-btn active" data-filter="all">All Events</button>
+                <button class="filter-btn" data-filter="upcoming">Upcoming</button>
+                <button class="filter-btn" data-filter="past">Past Events</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Events Timeline -->
+    <div class="row">
+        <div class="col-12">
+            <div class="events-timeline" id="events-container">
+                <?php
+                $sql = "SELECT id, name, event_date, location, description FROM events ORDER BY event_date DESC";
+                $result = $mysqli->query($sql);
+
+                if ($result && $result->num_rows > 0) {
+                    $current_year = '';
+                    while ($row = $result->fetch_assoc()) {
+                        $event_date = new DateTime($row['event_date']);
+                        $now = new DateTime();
+                        $is_upcoming = $event_date > $now;
+                        $year = $event_date->format('Y');
+                        
+                        // Show year divider
+                        if ($year !== $current_year) {
+                            if ($current_year !== '') echo '</div>'; // Close previous year group
+                            echo '<div class="year-group" data-year="' . $year . '">';
+                            echo '<h3 class="year-divider">' . $year . '</h3>';
+                            $current_year = $year;
+                        }
+                        
+                        $event_status = $is_upcoming ? 'upcoming' : 'past';
+                        $full_description = strip_tags($row['description']);
+                        $preview_description = mb_substr($full_description, 0, 150);
+                        $has_more_content = mb_strlen($full_description) > 150;
+                ?>
+                        <div class="event-item <?php echo $event_status; ?>" 
+                             data-status="<?php echo $event_status; ?>"
+                             id="event-<?php echo $row['id']; ?>">
+                            <div class="event-card">
+                                <div class="event-date-badge <?php echo $is_upcoming ? 'upcoming-badge' : 'past-badge'; ?>">
+                                    <div class="date-day"><?php echo $event_date->format('d'); ?></div>
+                                    <div class="date-month"><?php echo $event_date->format('M'); ?></div>
+                                    <?php if ($is_upcoming): ?>
+                                        <div class="upcoming-indicator">
+                                            <i class="fas fa-clock"></i>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                                
+                                <div class="event-content">
+                                    <div class="event-header">
+                                        <h4 class="event-title"><?php echo htmlspecialchars($row['name']); ?></h4>
+                                        <div class="event-meta">
+                                            <span class="event-time">
+                                                <i class="far fa-clock me-1"></i>
+                                                <?php echo $event_date->format('g:i A'); ?>
+                                            </span>
+                                            <span class="event-location">
+                                                <i class="fas fa-map-marker-alt me-1"></i>
+                                                <?php echo htmlspecialchars($row['location']); ?>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="event-description">
+                                        <div class="description-preview">
+                                            <?php echo nl2br(htmlspecialchars($preview_description)); ?>
+                                            <?php if ($has_more_content): ?>
+                                                <span class="description-ellipsis">...</span>
+                                            <?php endif; ?>
+                                        </div>
+                                        
+                                        <?php if ($has_more_content): ?>
+                                            <div class="description-full" style="display: none;">
+                                                <?php echo nl2br(htmlspecialchars($full_description)); ?>
+                                            </div>
+                                            
+                                            <button class="btn btn-sm btn-outline-primary see-more-btn mt-2">
+                                                Read More
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-primary see-less-btn mt-2" style="display: none;">
+                                                Read Less
+                                            </button>
+                                        <?php endif; ?>
+                                    </div>
+                                    
+                                    <?php if ($is_upcoming): ?>
+                                        <div class="event-actions mt-3">
+                                            <button class="btn btn-primary btn-sm">
+                                                <i class="fas fa-calendar-plus me-1"></i>
+                                                Add to Calendar
+                                            </button>
+                                            <button class="btn btn-outline-secondary btn-sm">
+                                                <i class="fas fa-share-alt me-1"></i>
+                                                Share
+                                            </button>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                <?php
+                    }
+                    if ($current_year !== '') echo '</div>'; // Close last year group
+                    $result->free();
+                } else {
+                    echo '<div class="col-12 alert alert-info">No events found.</div>';
+                }
+                ?>
+            </div>
+        </div>
+    </div>
+    
+    <!-- No Results Message -->
+    <div class="row mt-4" id="no-events" style="display: none;">
+        <div class="col-12">
+            <div class="alert alert-info">
+                No events found for the selected filter.
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Events Page Styles */
+.page-title {
+    color: var(--current-text);
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.event-stats {
+    display: flex;
+    gap: 2rem;
+    justify-content: flex-end;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--current-accent);
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: var(--current-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.event-filters {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.filter-btn {
+    background: var(--current-bg-secondary);
+    border: 2px solid transparent;
+    color: var(--current-text);
+    padding: 0.5rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: var(--current-accent);
+    color: var(--current-bg);
+    border-color: var(--current-accent);
+}
+
+.year-divider {
+    color: var(--current-accent);
+    font-weight: 700;
+    margin: 2rem 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--current-accent);
+}
+
+.event-item {
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+}
+
+.event-item.hidden {
+    display: none;
+}
+
+.event-card {
+    display: flex;
+    background: var(--current-bg);
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.event-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}
+
+.event-date-badge {
+    flex-shrink: 0;
+    width: 100px;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    color: white;
+    position: relative;
+}
+
+.upcoming-badge {
+    background: linear-gradient(135deg, var(--current-accent), #ffb700);
+}
+
+.past-badge {
+    background: linear-gradient(135deg, #6c757d, #495057);
+}
+
+.date-day {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.date-month {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 0.25rem;
+}
+
+.upcoming-indicator {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.event-content {
+    flex: 1;
+    padding: 1.5rem;
+}
+
+.event-title {
+    color: var(--current-text);
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
+
+.event-meta {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    color: var(--current-text-muted);
+}
+
+.event-description {
+    color: var(--current-text-secondary);
+    line-height: 1.6;
+}
+
+.description-ellipsis {
+    color: var(--current-accent);
+    font-weight: 600;
+}
+
+.event-actions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .event-card {
+        flex-direction: column;
+    }
+    
+    .event-date-badge {
+        width: 100%;
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+    }
+    
+    .date-day, .date-month {
+        display: inline;
+    }
+    
+    .event-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .event-stats {
+        justify-content: center;
+        margin-top: 1rem;
+    }
+}
+</style>
+
+<script>
+// Events page functionality
+document.addEventListener('DOMContentLoaded', function() {
+    initEventFilters();
+    initEventActions();
+});
+
+function initEventFilters() {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const eventItems = document.querySelectorAll('.event-item');
+    const noEvents = document.getElementById('no-events');
+    
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const filter = this.getAttribute('data-filter');
+            
+            // Update active button
+            filterBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Filter events
+            let visibleCount = 0;
+            
+            eventItems.forEach(item => {
+                const status = item.getAttribute('data-status');
+                
+                if (filter === 'all' || status === filter) {
+                    item.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+            
+            // Show/hide no results message
+            if (visibleCount === 0) {
+                noEvents.style.display = 'block';
+            } else {
+                noEvents.style.display = 'none';
+            }
+        });
+    });
+}
+
+function initEventActions() {
+    // See more/less functionality
+    const seeMoreBtns = document.querySelectorAll('.see-more-btn');
+    const seeLessBtns = document.querySelectorAll('.see-less-btn');
+    
+    seeMoreBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const event = this.closest('.event-item');
+            const preview = event.querySelector('.description-preview');
+            const full = event.querySelector('.description-full');
+            const seeLessBtn = event.querySelector('.see-less-btn');
+            
+            preview.style.display = 'none';
+            full.style.display = 'block';
+            this.style.display = 'none';
+            seeLessBtn.style.display = 'inline-block';
+        });
+    });
+    
+    seeLessBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const event = this.closest('.event-item');
+            const preview = event.querySelector('.description-preview');
+            const full = event.querySelector('.description-full');
+            const seeMoreBtn = event.querySelector('.see-more-btn');
+            
+            full.style.display = 'none';
+            preview.style.display = 'block';
+            this.style.display = 'none';
+            seeMoreBtn.style.display = 'inline-block';
+        });
+    });
+}
+</script>
+
+<?php include '../includes/footer.php'; ?>

@@ -199,6 +199,7 @@ include '../includes/header.php';
     transition: all 0.3s ease;
 }
 
+
 .news-article.hidden {
     display: none;
 }
