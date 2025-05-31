@@ -1,141 +1,318 @@
-<?php require_once '../config/db.php'; // For potential future use, not strictly needed for static form display ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DroughtWatch - Contact Us</title>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-lg fixed-top">
-            <div class="container">
-                <a class="navbar-brand site-title" href="index.php">DroughtWatch</a>
+<?php 
+$pageTitle = "DroughtWatch - Contact Us";
+$pageDescription = "Get in touch with the DroughtWatch team for questions, collaborations, or support.";
+$basePath = '../';
+$cssPath = '../';
+include '../includes/header.php';
 
-                <div class="mx-auto d-none d-lg-block">
-                    <ul class="nav page-indicators">
-                        <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="researchers.php">Research</a></li>
-                        <li class="nav-item"><a class="nav-link" href="news.php">News</a></li>
-                        <li class="nav-item"><a class="nav-link" href="events.php">Events</a></li>
-                        <li class="nav-item"><a class="nav-link" href="stories.php">Stories</a></li>
-                    </ul>
+// Handle form submission
+$form_submitted = false;
+$form_success = false;
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $form_submitted = true;
+    // In a real implementation, you would process the form data here
+    $form_success = true;
+}
+?>
+
+<div class="container mt-5 pt-5">
+    <!-- Page Header -->
+    <div class="row align-items-center mb-5">
+        <div class="col-lg-6">
+            <h1 class="page-title">Contact Us</h1>
+            <p class="lead">Have questions, suggestions, or want to collaborate? We'd love to hear from you.</p>
+        </div>
+        <div class="col-lg-6">
+            <div class="contact-info-cards">
+                <div class="info-card">
+                    <i class="fas fa-envelope"></i>
+                    <span>info@droughtwatch.org</span>
                 </div>
-
-                <div class="d-flex align-items-center site-icons">
-                    <a href="#" id="search-icon" class="nav-icon p-2"><i class="fas fa-search"></i></a>
-                    <a href="#" id="night-mode-toggle" class="nav-icon p-2"><i class="fas fa-moon"></i></a>
-                    <div class="dropdown hamburger-menu">
-                        <a href="#" id="hamburger-icon" class="nav-icon p-2" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-bars"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="hamburger-icon">
-                            <li class="d-lg-none"><a class="dropdown-item" href="index.php">Home</a></li>
-                            <li class="d-lg-none"><a class="dropdown-item" href="researchers.php">Research</a></li>
-                            <li class="d-lg-none"><a class="dropdown-item" href="news.php">News</a></li>
-                            <li class="d-lg-none"><a class="dropdown-item" href="events.php">Events</a></li>
-                            <li class="d-lg-none"><a class="dropdown-item" href="stories.php">Stories</a></li>
-                            <li><hr class="dropdown-divider d-lg-none"></li>
-                            <li><a class="dropdown-item" href="about.php">About Us</a></li>
-                            <li><a class="dropdown-item" href="thematic_focus.php">Thematic Focus</a></li>
-                            <li><a class="dropdown-item active" href="contact.php">Contact Us</a></li>
-                            <li><a class="dropdown-item" href="admin/login.php">Admin Login</a></li>
-                            <li><a class="dropdown-item" href="#">Support Focus (Placeholder)</a></li>
-                        </ul>
-                    </div>
+                <div class="info-card">
+                    <i class="fas fa-phone"></i>
+                    <span>+251 91 2222 333</span>
                 </div>
             </div>
-        </nav>
-    </header>
-    <main class="container mb-5" style="padding-top: 2rem;"> {/* Consistent padding */}
-        <h1 class="my-4">Contact Us</h1>
-        <p>Have questions, suggestions, or want to collaborate? Reach out to us using the form below or through the contact details provided.</p>
-        
-        <div class="row">
-            <div class="col-md-8">
-                <h3 class="mb-3">Send us a Message</h3>
-                <form action="contact.php" method="POST"> <?php // Action can be blank or point to a processing script ?>
-                    <div class="mb-3">
-                        <label for="contactName" class="form-label">Full Name</label>
-                        <input type="text" class="form-control" id="contactName" name="name" required>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Contact Form -->
+        <div class="col-lg-8 mb-5">
+            <div class="contact-form-container">
+                <h3 class="mb-4">Send us a Message</h3>
+                
+                <?php if ($form_submitted && $form_success): ?>
+                    <div class="alert alert-success">
+                        <i class="fas fa-check-circle me-2"></i>
+                        Thank you for your message! We'll get back to you within 24 hours.
                     </div>
-                    <div class="mb-3">
-                        <label for="contactEmail" class="form-label">Email Address</label>
-                        <input type="email" class="form-control" id="contactEmail" name="email" required>
+                <?php endif; ?>
+                
+                <form action="contact.php" method="POST" class="contact-form">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="firstName" class="form-label">First Name *</label>
+                            <input type="text" class="form-control" id="firstName" name="first_name" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="lastName" class="form-label">Last Name *</label>
+                            <input type="text" class="form-control" id="lastName" name="last_name" required>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="contactSubject" class="form-label">Subject</label>
-                        <input type="text" class="form-control" id="contactSubject" name="subject">
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label">Email Address *</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="organization" class="form-label">Organization</label>
+                            <input type="text" class="form-control" id="organization" name="organization">
+                        </div>
                     </div>
+                    
                     <div class="mb-3">
-                        <label for="contactMessage" class="form-label">Message</label>
-                        <textarea class="form-control" id="contactMessage" name="message" rows="5" required></textarea>
+                        <label for="subject" class="form-label">Subject *</label>
+                        <select class="form-control" id="subject" name="subject" required>
+                            <option value="">Select a subject</option>
+                            <option value="general">General Inquiry</option>
+                            <option value="research">Research Collaboration</option>
+                            <option value="data">Data Access Request</option>
+                            <option value="technical">Technical Support</option>
+                            <option value="media">Media Inquiry</option>
+                            <option value="other">Other</option>
+                        </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Send Message</button>
-                    <?php 
-                    // Placeholder for submission feedback
-                    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                        // Basic non-functional feedback for MVP
-                        echo '<div class="alert alert-success mt-3">Thank you for your message! (This is a demo - no email has been sent.)</div>';
-                    }
-                    ?>
+                    
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Message *</label>
+                        <textarea class="form-control" id="message" name="message" rows="6" required placeholder="Tell us how we can help you..."></textarea>
+                    </div>
+                    
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="newsletter" name="newsletter">
+                        <label class="form-check-label" for="newsletter">
+                            Subscribe to our newsletter for drought research updates
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="fas fa-paper-plane me-2"></i>
+                        Send Message
+                    </button>
                 </form>
             </div>
-            <div class="col-md-4">
-                <h3 class="mb-3">Our Contact Information</h3>
-                <p>
-                    <strong>Email:</strong> <a href="mailto:info@droughtprediction.org">info@droughtprediction.org</a><br>
-                    <strong>Phone:</strong> +1 (555) 123-4567<br>
-                    <strong>Address:</strong> 123 Research Park, Science City, SC 90210
-                </p>
-                <p>Follow us on social media (links are placeholders):</p>
-                <p>
-                    <a href="#" class="btn btn-outline-primary btn-sm mb-1">Twitter</a>
-                    <a href="#" class="btn btn-outline-primary btn-sm mb-1">LinkedIn</a>
-                    <a href="#" class="btn btn-outline-primary btn-sm mb-1">Facebook</a>
-                </p>
-            </div>
         </div>
-    </main>
-    <footer class="site-footer mt-auto py-4">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 mb-4 mb-lg-0">
-                    <h5>About DroughtWatch</h5>
-                    <p class="text-muted small">DroughtWatch is dedicated to providing timely and accurate information on drought conditions, leveraging research and data analysis to support communities and decision-makers.</p>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                    <h5>Quick Links</h5>
-                    <ul class="list-unstyled small">
-                        <li><a href="privacy.php" class="footer-link">Privacy Policy</a></li>
-                        <li><a href="terms.php" class="footer-link">Terms of Use</a></li>
-                        <li><a href="contact.php" class="footer-link">Contact Us</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <h5>Connect With Us</h5>
-                    <div class="social-icons">
-                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+        
+        <!-- Contact Information -->
+        <div class="col-lg-4">
+            <div class="contact-sidebar">
+                <div class="contact-section">
+                    <h4>Office Location</h4>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <strong>DroughtWatch Research Center</strong><br>
+                            123 Abrhot Library <br>
+                            4-Kilo, Addis Ababa<br>
+                            Ethiopia
+                        </div>
                     </div>
                 </div>
-            </div>
-            <hr class="my-3">
-            <div class="row">
-                <div class="col text-center text-muted small">
-                    &copy; <?php echo date("Y"); ?> DroughtWatch. All Rights Reserved.
+                
+                <div class="contact-section">
+                    <h4>Office Hours</h4>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <strong>Monday - Friday:</strong> 9:00 AM - 6:00 PM<br>
+                            <strong>Saturday:</strong> 10:00 AM - 2:00 PM<br>
+                            <strong>Sunday:</strong> Closed
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="contact-section">
+                    <h4>Quick Links</h4>
+                    <ul class="quick-links">
+                        <li><a href="../pages/about.php">About Us</a></li>
+                        <li><a href="../pages/researchers.php">Our Team</a></li>
+                        <li><a href="../pages/news.php">Latest News</a></li>
+                        <li><a href="../pages/events.php">Upcoming Events</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
-    <script src="js/main.js"></script> <?php // In case any global JS is needed, good to keep it ?>
-</body>
-</html>
+    </div>
+</div>
+
+<style>
+/* Contact Page Styles */
+.page-title {
+    color: var(--current-text);
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.contact-info-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.info-card {
+    background: var(--current-bg);
+    border: 2px solid var(--current-accent);
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.3s ease;
+}
+
+.info-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}
+
+.info-card i {
+    font-size: 1.5rem;
+    color: var(--current-accent);
+    width: 30px;
+    text-align: center;
+}
+
+.contact-form-container {
+    background: var(--current-bg);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.contact-form .form-label {
+    color: var(--current-text);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.contact-form .form-control {
+    border: 2px solid var(--current-bg-secondary);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    background: var(--current-bg);
+    color: var(--current-text);
+    transition: all 0.3s ease;
+}
+
+.contact-form .form-control:focus {
+    border-color: var(--current-accent);
+    box-shadow: 0 0 0 0.2rem rgba(255, 215, 0, 0.25);
+    background: var(--current-bg);
+    color: var(--current-text);
+}
+
+.contact-sidebar {
+    background: var(--current-bg);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: var(--shadow-sm);
+    height: fit-content;
+}
+
+.contact-section {
+    margin-bottom: 2rem;
+}
+
+.contact-section:last-child {
+    margin-bottom: 0;
+}
+
+.contact-section h4 {
+    color: var(--current-text);
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--current-accent);
+}
+
+.contact-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.contact-item i {
+    color: var(--current-accent);
+    font-size: 1.2rem;
+    margin-top: 0.2rem;
+    width: 20px;
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-link {
+    width: 40px;
+    height: 40px;
+    background: var(--current-accent);
+    color: var(--current-bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    background: var(--current-text);
+    color: var(--current-bg);
+    transform: translateY(-2px);
+}
+
+.quick-links {
+    list-style: none;
+    padding: 0;
+}
+
+.quick-links li {
+    margin-bottom: 0.5rem;
+}
+
+.quick-links a {
+    color: var(--current-text-secondary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.quick-links a:hover {
+    color: var(--current-accent);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .contact-info-cards {
+        margin-top: 2rem;
+    }
+    
+    .social-links {
+        justify-content: center;
+    }
+}
+</style>
+
+<?php include '../includes/footer.php'; ?>
