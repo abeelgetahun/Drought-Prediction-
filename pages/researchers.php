@@ -11,7 +11,7 @@ include '../includes/header.php';
     <!-- Page Header with Search -->
     <div class="row align-items-center mb-4">
         <div class="col-md-6">
-            <h1 class="page-title">Our Researchers</h1>
+            <h1 class="page-title">Our Researches</h1>
             <p class="text-muted">Meet the experts behind our drought research and monitoring</p>
         </div>
         <div class="col-md-6">
