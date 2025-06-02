@@ -1,102 +1,208 @@
-<?php require_once '../config/db.php'; // Include if any DB interaction is needed, or for consistency ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DroughtWatch - Terms of Use</title>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-lg fixed-top">
-            <div class="container">
-                <a class="navbar-brand site-title" href="index.php">DroughtWatch</a>
-                <div class="mx-auto d-none d-lg-block">
-                    <ul class="nav page-indicators">
-                        <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="researchers.php">Research</a></li>
-                        <li class="nav-item"><a class="nav-link" href="news.php">News</a></li>
-                        <li class="nav-item"><a class="nav-link" href="events.php">Events</a></li>
-                        <li class="nav-item"><a class="nav-link" href="stories.php">Stories</a></li>
-                    </ul>
-                </div>
-                <div class="d-flex align-items-center site-icons">
-                    <a href="#" id="search-icon" class="nav-icon p-2"><i class="fas fa-search"></i></a>
-                    <a href="#" id="night-mode-toggle" class="nav-icon p-2"><i class="fas fa-moon"></i></a>
-                    <div class="dropdown hamburger-menu">
-                        <a href="#" id="hamburger-icon" class="nav-icon p-2" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-bars"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="hamburger-icon">
-                            <li class="d-lg-none"><a class="dropdown-item" href="index.php">Home</a></li>
-                            <li class="d-lg-none"><a class="dropdown-item" href="researchers.php">Research</a></li>
-                            <li class="d-lg-none"><a class="dropdown-item" href="news.php">News</a></li>
-                            <li class="d-lg-none"><a class="dropdown-item" href="events.php">Events</a></li>
-                            <li class="d-lg-none"><a class="dropdown-item" href="stories.php">Stories</a></li>
-                            <li><hr class="dropdown-divider d-lg-none"></li>
-                            <li><a class="dropdown-item" href="about.php">About Us</a></li>
-                            <li><a class="dropdown-item" href="thematic_focus.php">Thematic Focus</a></li>
-                            <li><a class="dropdown-item" href="contact.php">Contact Us</a></li>
-                            <li><a class="dropdown-item" href="admin/login.php">Admin Login</a></li>
-                            <li><a class="dropdown-item" href="#">Support Focus (Placeholder)</a></li>
+<?php 
+$pageTitle = "DroughtWatch - Terms of Use";
+$pageDescription = "Terms of use and legal information for DroughtWatch services and platform.";
+$basePath = '../';
+$cssPath = '../';
+include '../includes/header.php';
+?>
+
+<div class="container mt-5 pt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="terms-container">
+                <h1 class="page-title text-center mb-4">Terms of Use</h1>
+                <p class="text-center text-muted mb-5">Last updated: <?php echo date('F j, Y'); ?></p>
+                
+                <div class="terms-content">
+                    <section class="terms-section">
+                        <h2>1. Acceptance of Terms</h2>
+                        <p>By accessing and using DroughtWatch ("the Service"), you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.</p>
+                    </section>
+                    
+                    <section class="terms-section">
+                        <h2>2. Description of Service</h2>
+                        <p>DroughtWatch provides drought monitoring and prediction services through:</p>
+                        <ul>
+                            <li>Real-time drought condition monitoring</li>
+                            <li>Predictive analytics and forecasting</li>
+                            <li>Research data and publications</li>
+                            <li>Educational resources and tools</li>
+                            <li>Community collaboration platforms</li>
                         </ul>
-                    </div>
+                    </section>
+                    
+                    <section class="terms-section">
+                        <h2>3. User Responsibilities</h2>
+                        <p>Users of DroughtWatch agree to:</p>
+                        <ul>
+                            <li>Provide accurate and complete information when required</li>
+                            <li>Use the service for lawful purposes only</li>
+                            <li>Respect intellectual property rights</li>
+                            <li>Not attempt to gain unauthorized access to our systems</li>
+                            <li>Report any security vulnerabilities responsibly</li>
+                        </ul>
+                    </section>
+                    
+                    <section class="terms-section">
+                        <h2>4. Data Usage and Privacy</h2>
+                        <p>DroughtWatch is committed to protecting your privacy. Our data practices include:</p>
+                        <ul>
+                            <li>Collection of minimal necessary information</li>
+                            <li>Secure storage and transmission of data</li>
+                            <li>No sale of personal information to third parties</li>
+                            <li>Transparent data usage policies</li>
+                            <li>User control over personal data</li>
+                        </ul>
+                        <p>For detailed information, please review our <a href="privacy.php">Privacy Policy</a>.</p>
+                    </section>
+                    
+                    <section class="terms-section">
+                        <h2>5. Intellectual Property</h2>
+                        <p>All content, data, and materials provided through DroughtWatch are protected by intellectual property laws. Users may:</p>
+                        <ul>
+                            <li>Access and use data for research and educational purposes</li>
+                            <li>Cite DroughtWatch as the source when using our data</li>
+                            <li>Share information with proper attribution</li>
+                        </ul>
+                        <p>Commercial use requires explicit permission from DroughtWatch.</p>
+                    </section>
+                    
+                    <section class="terms-section">
+                        <h2>6. Disclaimer of Warranties</h2>
+                        <p>DroughtWatch provides information and services "as is" without warranties of any kind. While we strive for accuracy, we cannot guarantee:</p>
+                        <ul>
+                            <li>Complete accuracy of all data and predictions</li>
+                            <li>Uninterrupted service availability</li>
+                            <li>Fitness for any particular purpose</li>
+                            <li>Error-free operation</li>
+                        </ul>
+                    </section>
+                    
+                    <section class="terms-section">
+                        <h2>7. Limitation of Liability</h2>
+                        <p>DroughtWatch shall not be liable for any direct, indirect, incidental, special, or consequential damages resulting from the use or inability to use our services, even if we have been advised of the possibility of such damages.</p>
+                    </section>
+                    
+                    <section class="terms-section">
+                        <h2>8. Modifications to Terms</h2>
+                        <p>DroughtWatch reserves the right to modify these terms at any time. Users will be notified of significant changes through:</p>
+                        <ul>
+                            <li>Email notifications to registered users</li>
+                            <li>Prominent notices on our website</li>
+                            <li>Updates to this page with revision dates</li>
+                        </ul>
+                    </section>
+                    
+                    <section class="terms-section">
+                        <h2>9. Contact Information</h2>
+                        <p>For questions about these Terms of Use, please contact us:</p>
+                        <div class="contact-info">
+                            <p><strong>Email:</strong> legal@droughtwatch.org</p>
+                            <p><strong>Address:</strong> DroughtWatch Legal Department<br>
+                            123 Research Park Drive<br>
+                            Science City, SC 90210</p>
+                        </div>
+                    </section>
                 </div>
-            </div>
-        </nav>
-    </header>
-
-    <main class="container mb-5" style="padding-top: 2rem;"> {/* Consistent padding */}
-        <div class="row">
-            <div class="col-12">
-                <h1 class="my-4">Terms of Use</h1>
-                <p>Content for the Terms of Use page is coming soon.</p>
-                <p>Please check back later.</p>
+                
+                <div class="terms-footer">
+                    <p class="text-center">
+                        <a href="../pages/contact.php" class="btn btn-primary me-3">Contact Us</a>
+                        <a href="../pages/privacy.php" class="btn btn-outline-primary">Privacy Policy</a>
+                    </p>
+                </div>
             </div>
         </div>
-    </main>
+    </div>
+</div>
 
-    <footer class="site-footer mt-auto py-4">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 mb-4 mb-lg-0">
-                    <h5>About DroughtWatch</h5>
-                    <p class="text-muted small">DroughtWatch is dedicated to providing timely and accurate information on drought conditions, leveraging research and data analysis to support communities and decision-makers.</p>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                    <h5>Quick Links</h5>
-                    <ul class="list-unstyled small">
-                        <li><a href="privacy.php" class="footer-link">Privacy Policy</a></li>
-                        <li><a href="terms.php" class="footer-link">Terms of Use</a></li>
-                        <li><a href="contact.php" class="footer-link">Contact Us</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <h5>Connect With Us</h5>
-                    <div class="social-icons">
-                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-            </div>
-            <hr class="my-3">
-            <div class="row">
-                <div class="col text-center text-muted small">
-                    &copy; <?php echo date("Y"); ?> DroughtWatch. All Rights Reserved.
-                </div>
-            </div>
-        </div>
-    </footer>
+<style>
+/* Terms Page Styles */
+.page-title {
+    color: var(--current-text);
+    font-weight: 700;
+}
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/image-loader.js"></script> 
-</body>
-</html>
+.terms-container {
+    background: var(--current-bg);
+    border-radius: 12px;
+    padding: 3rem;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 3rem;
+}
+
+.terms-content {
+    line-height: 1.7;
+    color: var(--current-text-secondary);
+}
+
+.terms-section {
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--current-bg-secondary);
+}
+
+.terms-section:last-child {
+    border-bottom: none;
+    margin-bottom: 2rem;
+}
+
+.terms-section h2 {
+    color: var(--current-text);
+    font-weight: 600;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.terms-section ul {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+}
+
+.terms-section li {
+    margin-bottom: 0.5rem;
+}
+
+.terms-section a {
+    color: var(--current-accent);
+    text-decoration: none;
+}
+
+.terms-section a:hover {
+    text-decoration: underline;
+}
+
+.contact-info {
+    background: var(--current-bg-secondary);
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+}
+
+.contact-info p {
+    margin-bottom: 0.5rem;
+}
+
+.contact-info p:last-child {
+    margin-bottom: 0;
+}
+
+.terms-footer {
+    border-top: 2px solid var(--current-accent);
+    padding-top: 2rem;
+    margin-top: 2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .terms-container {
+        padding: 2rem 1.5rem;
+    }
+    
+    .terms-section h2 {
+        font-size: 1.3rem;
+    }
+}
+</style>
+
+<?php include '../includes/footer.php'; ?>
