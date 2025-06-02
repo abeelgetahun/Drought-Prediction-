@@ -58,29 +58,63 @@ include 'includes/header.php';
     </div>
 </section>
 
-<!-- Data Visualization Section -->
-<section class="content-section">
-    <div class="container">
-        <h2 class="section-title">Real-Time Drought Monitoring</h2>
-        <div class="row align-items-center">
-            <div class="col-lg-6 mb-4 mb-lg-0">
-                <h3>Advanced Analytics Dashboard</h3>
-                <p class="lead">
-                    DroughtWatch leverages satellite imagery, weather station data, and machine learning 
-                    to provide real-time drought conditions and predictions.
-                </p>
-                <ul class="list-unstyled">
-                    <li class="mb-2"><i class="fas fa-chart-line me-2" style="color: var(--current-accent);"></i> Precipitation anomalies</li>
-                    <li class="mb-2"><i class="fas fa-leaf me-2" style="color: var(--current-accent);"></i> Vegetation health indices</li>
-                    <li class="mb-2"><i class="fas fa-temperature-high me-2" style="color: var(--current-accent);"></i> Temperature patterns</li>
-                    <li class="mb-2"><i class="fas fa-water me-2" style="color: var(--current-accent);"></i> Soil moisture analysis</li>
-                </ul>
-                <a href="#" class="btn btn-primary">View Dashboard</a>
+<!-- Data Visualization Section with Parallax Background -->
+<section class="parallax-section" id="drought-monitoring">
+    <div class="parallax-content">
+        <div class="container">
+            <div class="section-title-wrapper">
+                <h2 class="section-title text-white">Real-Time Drought Monitoring</h2>
             </div>
-            <div class="col-lg-6">
-                <div class="dashboard-preview p-4" style="background: linear-gradient(135deg, var(--current-bg-secondary) 0%, var(--current-bg-tertiary) 100%); border-radius: 15px;">
-                    <div style="height: 300px; background: linear-gradient(135deg, var(--current-accent) 0%, rgba(255,215,0,0.1) 100%); border-radius: 10px; position: relative; overflow: hidden;">
-                        <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 60%; background: linear-gradient(to top, rgba(0,0,0,0.3), transparent); clip-path: polygon(0 100%, 15% 85%, 30% 90%, 45% 75%, 60% 80%, 75% 65%, 90% 70%, 100% 60%, 100% 100%);"></div>
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-3 mb-lg-0">
+                    <div class="content-card">
+                        <div class="content-header">
+                            <h3>Advanced Analytics Dashboard</h3>
+                            <p>DroughtWatch leverages satellite imagery, weather data, and machine learning for real-time drought monitoring.</p>
+                        </div>
+                        <ul class="feature-list">
+                            <li>
+                                <div class="feature-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div class="feature-text">
+                                    <strong>Precipitation anomalies</strong>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="feature-icon">
+                                    <i class="fas fa-leaf"></i>
+                                </div>
+                                <div class="feature-text">
+                                    <strong>Vegetation health indices</strong>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="feature-icon">
+                                    <i class="fas fa-temperature-high"></i>
+                                </div>
+                                <div class="feature-text">
+                                    <strong>Temperature patterns</strong>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="feature-icon">
+                                    <i class="fas fa-water"></i>
+                                </div>
+                                <div class="feature-text">
+                                    <strong>Soil moisture analysis</strong>
+                                </div>
+                            </li>
+                        </ul>
+                        
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="dashboard-preview">
+                        <div class="dashboard-visual">
+                            <div class="dashboard-chart"></div>
+                            <div class="dashboard-overlay"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -231,6 +265,316 @@ include 'includes/header.php';
 .shape:hover::after {
     opacity: 1;
 }
+
+/* Parallax Section Styles - Optimized for Image Quality */
+.parallax-section {
+    position: relative;
+    min-height: 500px; /* Reduced height */
+    background-image: url('assets/images/drought-landscape.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+    overflow: hidden;
+    /* Removed backdrop-filter to preserve image quality */
+}
+
+.parallax-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 4rem 0; /* Reduced padding */
+    /* Removed background blur to preserve image quality */
+}
+
+/* Section title with localized blur */
+.section-title-wrapper {
+    text-align: center;
+    margin-bottom: 2rem; /* Reduced margin */
+}
+
+.section-title-wrapper .section-title {
+    position: relative;
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.parallax-section .section-title::after {
+    background-color: white;
+}
+
+/* Compact content card with localized blur */
+.content-card {
+    background: transparent; /* Removed black background */
+    border-radius: 12px;
+    padding: 0; /* Removed padding */
+    color: white;
+    /* Removed backdrop-filter and borders */
+}
+
+.content-header {
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.content-header h3 {
+    color: white;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    font-size: 1.5rem; /* Reduced font size */
+}
+
+.content-header p {
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    font-size: 0.95rem; /* Reduced font size */
+    line-height: 1.4;
+}
+
+/* Compact feature list */
+.feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 12px;
+    padding: 1.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.feature-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem; /* Reduced margin */
+    transition: transform 0.3s ease;
+}
+
+.feature-list li:last-child {
+    margin-bottom: 0;
+}
+
+.feature-list li:hover {
+    transform: translateX(5px);
+}
+
+.feature-icon {
+    width: 40px; /* Reduced size */
+    height: 40px;
+    background: var(--current-accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    flex-shrink: 0;
+}
+
+.feature-icon i {
+    font-size: 1rem; /* Reduced size */
+    color: var(--current-bg);
+}
+
+.feature-text strong {
+    font-size: 1rem; /* Reduced size */
+    color: white;
+}
+
+/* CTA wrapper with localized blur */
+.cta-wrapper {
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 12px;
+    padding: 1.25rem;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dashboard-preview {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dashboard-visual {
+    width: 100%;
+    height: 280px; /* Reduced height */
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(5px);
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.dashboard-chart {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    background: linear-gradient(to top, var(--current-accent), transparent);
+    clip-path: polygon(0 100%, 15% 85%, 30% 90%, 45% 75%, 60% 80%, 75% 65%, 90% 70%, 100% 60%, 100% 100%);
+}
+
+.dashboard-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    opacity: 0.5;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991px) {
+    .parallax-section {
+        background-attachment: scroll;
+        min-height: 450px; /* Reduced for mobile */
+    }
+    
+    .parallax-content {
+        padding: 3rem 0;
+    }
+    
+    .content-card {
+        margin-bottom: 1.5rem;
+    }
+    
+    .dashboard-visual {
+        height: 220px;
+    }
+}
+
+@media (max-width: 767px) {
+    .parallax-section {
+        min-height: 400px;
+    }
+    
+    .parallax-content {
+        padding: 2.5rem 0;
+    }
+    
+    .content-header {
+        padding: 1.25rem;
+    }
+    
+    .feature-list {
+        padding: 1rem;
+    }
+    
+    .feature-list li {
+        margin-bottom: 0.75rem;
+    }
+    
+    .feature-icon {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .feature-icon i {
+        font-size: 0.9rem;
+    }
+    
+    .section-title-wrapper .section-title {
+        padding: 0.75rem 1.5rem;
+        font-size: 1.5rem;
+    }
+}
 </style>
+
+<script>
+// Enhanced JavaScript with improved performance
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if the browser supports parallax
+    const supportsParallax = !(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+    
+    if (!supportsParallax) {
+        document.querySelector('.parallax-section').style.backgroundAttachment = 'scroll';
+    }
+    
+    // Throttled scroll handler for better performance
+    let ticking = false;
+    
+    function updateParallax() {
+        const parallaxSection = document.querySelector('.parallax-section');
+        if (!parallaxSection) return;
+        
+        const scrollPosition = window.pageYOffset;
+        const sectionTop = parallaxSection.offsetTop;
+        const sectionHeight = parallaxSection.offsetHeight;
+        
+        // Check if section is in viewport
+        if (scrollPosition > sectionTop - window.innerHeight && 
+            scrollPosition < sectionTop + sectionHeight) {
+            
+            // Calculate scroll percentage
+            const scrollPercentage = (scrollPosition - (sectionTop - window.innerHeight)) / 
+                                    (sectionHeight + window.innerHeight);
+            
+            // Subtle movement for content elements (reduced effect)
+            const contentCard = document.querySelector('.content-card');
+            if (contentCard) {
+                contentCard.style.transform = `translateY(${-scrollPercentage * 15}px)`;
+            }
+            
+            const dashboardVisual = document.querySelector('.dashboard-visual');
+            if (dashboardVisual) {
+                dashboardVisual.style.transform = `translateY(${scrollPercentage * 15}px)`;
+            }
+        }
+        
+        ticking = false;
+    }
+    
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(updateParallax);
+            ticking = true;
+        }
+    }
+    
+    window.addEventListener('scroll', requestTick);
+    
+    // Enhanced hover effects for feature list items
+    const featureItems = document.querySelectorAll('.feature-list li');
+    featureItems.forEach((item, index) => {
+        item.addEventListener('mouseenter', function() {
+            this.querySelector('.feature-icon').style.transform = 'scale(1.1) rotate(5deg)';
+        });
+        
+        item.addEventListener('mouseleave', function() {
+            this.querySelector('.feature-icon').style.transform = 'scale(1) rotate(0deg)';
+        });
+        
+        // Staggered animation on load (faster)
+        item.style.opacity = '0';
+        item.style.transform = 'translateX(-15px)';
+        
+        setTimeout(() => {
+            item.style.transition = 'all 0.4s ease';
+            item.style.opacity = '1';
+            item.style.transform = 'translateX(0)';
+        }, 200 + (index * 80));
+    });
+});
+</script>
 
 <?php include 'includes/footer.php'; ?>
