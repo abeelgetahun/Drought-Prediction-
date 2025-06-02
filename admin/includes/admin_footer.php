@@ -1,37 +1,12 @@
-<footer class="admin-footer">
-    <div class="container-fluid">
-        <div class="footer-content">
-            <div class="footer-left">
-                <div class="footer-logo">
-                    <i class="fas fa-cloud-rain me-2"></i>
-                    <span>Drought Prediction System</span>
-                </div>
-                <p class="footer-text">&copy; <?php echo date("Y"); ?> All rights reserved. Admin Panel v2.0</p>
-            </div>
-            <div class="footer-right">
-                <div class="footer-links">
-                    <a href="#" class="footer-link">
-                        <i class="fas fa-book me-1"></i>
-                        Documentation
-                    </a>
-                    <a href="#" class="footer-link">
-                        <i class="fas fa-life-ring me-1"></i>
-                        Support
-                    </a>
-                    <a href="#" class="footer-link">
-                        <i class="fas fa-shield-alt me-1"></i>
-                        Security
-                    </a>
-                </div>
-                <div class="footer-status">
-                    <span class="status-indicator"></span>
-                    <span class="status-text">All Systems Operational</span>
-                </div>
-            </div>
-        </div>
+<footer class="footer mt-auto py-3">
+    <div class="container text-center">
+        <p class="mb-0">&copy; <?php echo date("Y"); ?> Drought Prediction System - Admin Panel</p>
     </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 </html>
