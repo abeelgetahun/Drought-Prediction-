@@ -1,0 +1,71 @@
+/* Advanced Hero Animations */
+
+/* Image loading animation */
+.floating-image {
+    opacity: 0;
+    animation: fadeInFloat 1s ease-out forwards;
+}
+
+.floating-image-1 { animation-delay: 0.2s; }
+.floating-image-2 { animation-delay: 0.4s; }
+.floating-image-3 { animation-delay: 0.6s; }
+.floating-image-4 { animation-delay: 0.8s; }
+
+@keyframes fadeInFloat {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Glowing effect on hover */
+.floating-image:hover {
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+/* Pulse effect for active image */
+.floating-image.active {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+        box-shadow: 0 15px 35px rgba(255, 215, 0, 0.4);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .floating-image {
+        border-radius: 10px;
+    }
+    
+    .floating-image-1,
+    .floating-image-2,
+    .floating-image-3,
+    .floating-image-4 {
+        width: 120px !important;
+        height: 80px !important;
+    }
+    
+    .image-overlay {
+        padding: 1rem 0.75rem 0.75rem;
+    }
+    
+    .image-overlay h4 {
+        font-size: 0.9rem;
+    }
+    
+    .image-overlay p {
+        font-size: 0.75rem;
+    }
+}
