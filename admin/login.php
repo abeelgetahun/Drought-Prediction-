@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login - Drought Prediction System</title>
+    <title>Admin Login - DroughtWatch System</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -122,7 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="card-header">
             <img src="../assets/logo.png" alt="Logo" class="login-logo" onerror="this.style.display='none'">
             <div class="login-title">Admin Login</div>
-            <div class="text-muted mb-3" style="font-size: 1rem;">Drought Prediction System</div>
+            <div class="text-muted mb-3" style="font-size: 1rem;">DroughtWatch System</div>
         </div>
         <div class="card-body p-0">
             <?php 
